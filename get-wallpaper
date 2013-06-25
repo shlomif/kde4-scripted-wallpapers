@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use FindBin qw($Bin);
+use IO::All;
+
+my $image = @ARGV;
+
+if ($image !~ /\A[1-8]\z/)
+{
+    print "$Bin/error.jpg\n";
+}
+print io()->file("$Bin/wallpapers/$image/image")->readlink(), "\n";
