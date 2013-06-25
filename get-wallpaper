@@ -6,10 +6,18 @@ use warnings;
 use FindBin qw($Bin);
 use IO::All;
 
-my $image = @ARGV;
+my ($image) = @ARGV;
 
 if ($image !~ /\A[1-8]\z/)
 {
     print "$Bin/error.jpg\n";
+    exit(0);
 }
-print io()->file("$Bin/wallpapers/$image/image")->readlink(), "\n";
+my $io = io("$Bin/wallpapers/$image/image");
+
+if (!$io->exists())
+{
+    print "$Bin/error.jpg\n";
+    exit(0);
+}
+print $io->readlink(), "\n";
